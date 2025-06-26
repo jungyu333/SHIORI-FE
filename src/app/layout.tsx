@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import React from 'react';
-import Providers from '@/app/providers';
+import MainLayout from '@/components/layout/MainLayout';
+import Providers from '@/common/providers';
 
 export const metadata: Metadata = {
   title: '코코로',
@@ -40,7 +41,9 @@ export default function RootLayout({
         <meta property="og:type" content="website" />
       </head>
       <body id="app">
-        <Providers>{children}</Providers>
+        <Providers>
+          <MainLayout>{children}</MainLayout>
+        </Providers>
       </body>
     </html>
   );
