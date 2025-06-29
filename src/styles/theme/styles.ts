@@ -2,6 +2,7 @@ const styles = {
   global: {
     '*': {
       boxSizing: 'border-box',
+      userSelect: 'none',
     },
     'html, body': {
       margin: 0,

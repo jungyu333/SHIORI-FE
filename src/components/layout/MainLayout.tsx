@@ -33,6 +33,7 @@ const MainContainer = styled.main`
   position: relative;
   max-width: 480px;
   min-height: calc(var(--vh, 1vh) * 100);
+  height: 100dvh;
   margin: 0 auto;
   background-color: ${theme.colors.white};
 `;
