@@ -13,6 +13,14 @@ const styles = {
       color: 'inherit',
       textDecoration: 'none',
     },
+    'input:-webkit-autofill': {
+      boxShadow: '0 0 0px 1000px white inset',
+      WebkitTextFillColor: 'inherit',
+      transition: 'background-color 5000s ease-in-out 0s',
+    },
+    'input:-webkit-autofill:focus': {
+      boxShadow: '0 0 0px 1000px white inset',
+    },
     'textarea: focus, input: focus, button: focus': {
       outline: 'none !important',
     },

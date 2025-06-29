@@ -1,6 +1,19 @@
 export const colors = {
-  primary: '#FF541E',
-  secondary: '#1E1E1F',
+  primary: {
+    50: '#FFEFE8',
+    100: '#FFD7C2',
+    200: '#FFB18A',
+    300: '#FF8A52',
+    400: '#FF6A2D',
+    500: '#FF541E',
+    600: '#E24B1B',
+    700: '#C54117',
+    800: '#A93814',
+    900: '#892F10',
+  },
+  secondary: {
+    500: '#1E1E1F',
+  },
   transparent: 'transparent',
   current: 'currentColor',
   black: '#000',
