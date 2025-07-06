@@ -3,5 +3,4 @@ export type SignupFormValues = {
   password: string;
   name: string;
   nickname: string;
-  gender: 'male' | 'female';
 };

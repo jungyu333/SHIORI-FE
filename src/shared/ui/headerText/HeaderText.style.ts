@@ -17,10 +17,20 @@ export const MainText = styled(Heading)`
   letter-spacing: -0.02em;
   white-space: pre-line;
   text-align: center;
+  font-size: 24px;
+
+  @media (min-width: 48em) {
+    font-size: 32px;
+  }
 `;
 
 export const SubText = styled(Text)`
   letter-spacing: -0.02em;
   white-space: pre-line;
   text-align: center;
+  font-size: 16px;
+
+  @media (min-width: 48em) {
+    font-size: 20px;
+  }
 `;

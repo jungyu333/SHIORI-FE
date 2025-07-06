@@ -8,6 +8,7 @@ const styles = {
       margin: 0,
       padding: 0,
       height: '100%',
+      overflowY: 'auto',
     },
     a: {
       color: 'inherit',
