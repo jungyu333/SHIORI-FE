@@ -11,7 +11,7 @@ export default function SignupButton() {
 
 const Navigation = styled(Text)`
   width: fit-content;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.02em;
   text-align: center;

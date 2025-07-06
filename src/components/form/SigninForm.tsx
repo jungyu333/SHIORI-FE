@@ -34,6 +34,7 @@ export default function SigninForm() {
         _hover={{ bgColor: 'secondary.500' }}
         color={'white'}
         mt="24"
+        fontSize={20}
         isLoading={isSubmitting}
         type="submit"
       >
