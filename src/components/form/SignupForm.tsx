@@ -8,7 +8,6 @@ import PasswordInput from '@/components/input/PasswordInput';
 import TextInput from '@/components/input/TextInput'; // 이름, 닉네임용
 import { colors } from '@/styles/theme/foundations/colors';
 import { SignupFormValues } from '@/types/signup';
-import GenderSelector from '@/components/input/GenderSelector';
 
 export default function SignupForm() {
   const {
@@ -29,7 +28,6 @@ export default function SignupForm() {
       <PasswordInput register={register} error={errors.password} name={'password'} />
       <TextInput label="이름" name="name" register={register} error={errors.name} />
       <TextInput label="닉네임" name="nickname" register={register} error={errors.nickname} />
-      <GenderSelector name="gender" control={control} error={errors.gender} />
       <Button
         isDisabled={Object.keys(errors).length > 0}
         bgColor={colors.primary['500']}
