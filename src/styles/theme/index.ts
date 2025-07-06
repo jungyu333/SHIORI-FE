@@ -7,6 +7,12 @@ import styles from './styles';
 // Foundations
 import { foundations } from './foundations';
 
+const baseStyleWithTransition = {
+  baseStyle: {
+    transition: 'all 0.1s ease-in-out',
+  },
+};
+
 const config: ThemeConfig = {
   initialColorMode: 'light',
   useSystemColorMode: false,
@@ -17,6 +23,13 @@ const theme = extendTheme({
   ...foundations,
   components: {
     // Components
+    Box: baseStyleWithTransition,
+    Flex: baseStyleWithTransition,
+    Text: baseStyleWithTransition,
+    Heading: baseStyleWithTransition,
+    Stack: baseStyleWithTransition,
+    Button: baseStyleWithTransition,
+    Input: baseStyleWithTransition,
     Textarea: {
       variants: {
         outline: {
