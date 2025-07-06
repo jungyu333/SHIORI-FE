@@ -5,7 +5,7 @@ import SigninForm from '@/components/form/SigninForm';
 const SigninPage = () => {
   return (
     <S.Wrapper>
-      <HeaderText title={'다시 만나서 반가워요'} subTitle={'오늘도 코코로와 함께해요'} />
+      <HeaderText title={'기록은 계속됩니다'} subTitle={'오늘도 시오리와 함께해요'} />
 
       <SigninForm />
     </S.Wrapper>
