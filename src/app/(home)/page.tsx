@@ -10,9 +10,15 @@ const HomePage = () => {
 
       <S.Space />
 
+      <CTAButton _hover={{ bgColor: 'secondary.500' }} color={'white'} bgColor={'primary.500'}
+                 w={{ base: '100%', md: '500px' }}
+                 h={{ base: '56px', md: '70px' }}
+                 fontSize={{ base: 'lg', md: '2xl' }}
+                 marginBottom={{ base: '30px' }}
+      />
+
       <OnboardingIcon />
 
-      <CTAButton _hover={{ bgColor: 'secondary.500' }} color={'white'} bgColor={'primary.500'} />
     </S.Wrapper>
   );
 };
