@@ -25,7 +25,6 @@
 | UI 라이브러리 | [Chakra UI](https://chakra-ui.com/) + [Emotion](https://emotion.sh/docs/introduction)       |
 | 에디터      | [Tiptap](https://tiptap.dev/)                                                               |
 | 기타       | Prettier, ESLint                                                                            |
-|
 
 <br />
 
