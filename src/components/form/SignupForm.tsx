@@ -36,6 +36,7 @@ export default function SignupForm() {
         _hover={{ bgColor: 'secondary.500' }}
         color={colors.white}
         mt="24"
+        fontSize={20}
         isLoading={isSubmitting}
         type="submit"
       >

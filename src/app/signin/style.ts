@@ -14,4 +14,5 @@ export const Wrapper = styled.div`
   padding-left: 28px;
   padding-right: 28px;
   background: linear-gradient(135deg, ${theme.colors.primary[100]} 10%, ${theme.colors.primary[300]} 100%);
+  overflow-y: auto;
 `;
