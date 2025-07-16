@@ -46,7 +46,7 @@ function setAuthorizationHeader(config: InternalAxiosRequestConfig, token: strin
 
 export const INTERCEPTORS = {
   request: () => ({
-    onFulFilled: (config: InternalAxiosRequestConfig<any>) => {
+    onFulFilled: (config: InternalAxiosRequestConfig) => {
       if (config.data) config.data = toSnake(config.data);
 
       const token = localStorage.getItem('access_token');
@@ -62,7 +62,7 @@ export const INTERCEPTORS = {
   }),
 
   response: () => ({
-    onFulFilled: (response: AxiosResponse<any, any>) => {
+    onFulFilled: (response: AxiosResponse) => {
       if (response.data) response.data = toCamel(response.data);
       return response;
     },
