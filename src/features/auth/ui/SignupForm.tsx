@@ -5,9 +5,11 @@ import { useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
 import EmailInput from '@/components/input/EmailInput';
 import PasswordInput from '@/components/input/PasswordInput';
-import TextInput from '@/components/input/TextInput'; // 이름, 닉네임용
+import TextInput from '@/components/input/TextInput';
 import { colors } from '@/styles/theme/foundations/colors';
-import { SignupFormValues } from '@/types/signup';
+import { SignUpFormValues } from '@/features/auth/model/types/signUp';
+import { useSignUp } from '@/features/auth/queries/useSignUp';
+import { useRouter } from 'next/navigation';
 
 export default function SignupForm() {
   const {
@@ -15,18 +17,34 @@ export default function SignupForm() {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignupFormValues>();
+  } = useForm<SignUpFormValues>();
 
-  const onSubmit = (data: SignupFormValues) => {
-    console.log('회원가입 시도', data);
-    // 회원가입 API 호출 등 로직 추가
+  const { mutate, isLoading } = useSignUp();
+
+  const router = useRouter();
+
+  const onSubmit = (data: SignUpFormValues) => {
+    mutate(
+      {
+        email: data.email,
+        password: data.password,
+        nickname: data.nickname,
+      },
+      {
+        onSuccess: (data) => {
+          router.replace('/signin');
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      }
+    );
   };
 
   return (
     <Wrapper onSubmit={handleSubmit(onSubmit)} noValidate>
       <EmailInput register={register} error={errors.email} name={'email'} />
       <PasswordInput register={register} error={errors.password} name={'password'} />
-      <TextInput label="이름" name="name" register={register} error={errors.name} />
       <TextInput label="닉네임" name="nickname" register={register} error={errors.nickname} />
       <Button
         isDisabled={Object.keys(errors).length > 0}
@@ -35,7 +53,7 @@ export default function SignupForm() {
         color={colors.white}
         mt="24"
         fontSize={20}
-        isLoading={isSubmitting}
+        isLoading={isSubmitting || isLoading}
         type="submit"
       >
         가입하기

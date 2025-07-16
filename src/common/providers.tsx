@@ -22,7 +22,7 @@ export default function Providers({ children, dehydratedState }: { children: Rea
             keepPreviousData: true,
           },
           mutations: {
-            useErrorBoundary: true,
+            useErrorBoundary: false,
           },
         },
       })

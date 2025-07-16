@@ -1,6 +1,6 @@
 import * as S from './style';
 import HeaderText from '@/shared/ui/headerText';
-import SignupForm from '@/components/form/SignupForm';
+import SignupForm from '@/features/auth/ui/SignupForm';
 import FormCard from '@/shared/ui/formCard';
 
 const SignupPage = () => {
