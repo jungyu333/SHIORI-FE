@@ -1,6 +1,5 @@
-export type SignupFormValues = {
+export type SignUpFormValues = {
   email: string;
   password: string;
-  name: string;
   nickname: string;
 };
