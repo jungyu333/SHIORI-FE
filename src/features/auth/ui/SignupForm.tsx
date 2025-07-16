@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
 import EmailInput from '@/components/input/EmailInput';
 import PasswordInput from '@/components/input/PasswordInput';
-import TextInput from '@/components/input/TextInput'; // 이름, 닉네임용
+import TextInput from '@/components/input/TextInput';
 import { colors } from '@/styles/theme/foundations/colors';
-import { SignupFormValues } from '@/types/signup';
+import { SignupFormValues } from '@/features/auth/model/types/signUp';
 
 export default function SignupForm() {
   const {
