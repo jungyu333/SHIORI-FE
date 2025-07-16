@@ -8,6 +8,8 @@ import PasswordInput from '@/components/input/PasswordInput';
 import TextInput from '@/components/input/TextInput';
 import { colors } from '@/styles/theme/foundations/colors';
 import { SignUpFormValues } from '@/features/auth/model/types/signUp';
+import { useSignUp } from '@/features/auth/queries/useSignUp';
+import { useRouter } from 'next/navigation';
 
 export default function SignupForm() {
   const {
@@ -17,9 +19,26 @@ export default function SignupForm() {
     formState: { errors, isSubmitting },
   } = useForm<SignUpFormValues>();
 
+  const { mutate, isLoading } = useSignUp();
+
+  const router = useRouter();
+
   const onSubmit = (data: SignUpFormValues) => {
-    console.log('회원가입 시도', data);
-    // 회원가입 API 호출 등 로직 추가
+    mutate(
+      {
+        email: data.email,
+        password: data.password,
+        nickname: data.nickname,
+      },
+      {
+        onSuccess: (data) => {
+          router.replace('/signin');
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      }
+    );
   };
 
   return (
@@ -34,7 +53,7 @@ export default function SignupForm() {
         color={colors.white}
         mt="24"
         fontSize={20}
-        isLoading={isSubmitting}
+        isLoading={isSubmitting || isLoading}
         type="submit"
       >
         가입하기
