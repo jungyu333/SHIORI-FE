@@ -14,11 +14,13 @@
     "@emotion/styled": "^11.14.0",
     "@tanstack/react-query": "^4.24.4",
     "@tanstack/react-query-devtools": "^5.80.6",
+    "axios": "^1.3.0",
     "framer-motion": "^12.16.0",
     "next": "15.3.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.58.1",
+    "snake-camel": "^1.0.9",
     "typescript": "4.9.4"
   },
   "devDependencies": {
