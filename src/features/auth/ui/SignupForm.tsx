@@ -10,6 +10,8 @@ import { colors } from '@/styles/theme/foundations/colors';
 import { SignUpFormValues } from '@/features/auth/model/types/signUp';
 import { useSignUp } from '@/features/auth/queries/useSignUp';
 import { useRouter } from 'next/navigation';
+import { useNotify } from '@/shared/lib/hooks/useNotify';
+import { AxiosError } from 'axios';
 
 export default function SignupForm() {
   const {
@@ -23,6 +25,8 @@ export default function SignupForm() {
 
   const router = useRouter();
 
+  const toast = useNotify();
+
   const onSubmit = (data: SignUpFormValues) => {
     mutate(
       {
@@ -32,10 +36,11 @@ export default function SignupForm() {
       },
       {
         onSuccess: (data) => {
+          toast.success('환영합니다!');
           router.replace('/signin');
         },
-        onError: (error) => {
-          console.log(error);
+        onError: (error: AxiosError<{ message: string }>) => {
+          toast.warning(error.response.data.message);
         },
       }
     );
