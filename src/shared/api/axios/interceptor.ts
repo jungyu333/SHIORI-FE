@@ -17,7 +17,7 @@ function addRefreshSubscriber(callback: (token: string) => void) {
 async function refreshAccessToken(): Promise<string | null> {
   try {
     const response = await axios.post(
-      `${BASE_URL.shioriBE}/auth/refresh`,
+      `${BASE_URL.shioriBE}/api/auth/refresh`,
       {
         access_token: localStorage.getItem('access_token'),
       },
