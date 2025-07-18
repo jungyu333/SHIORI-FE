@@ -5,19 +5,43 @@ import { useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
 import EmailInput from '@/components/input/EmailInput';
 import PasswordInput from '@/components/input/PasswordInput';
-import { SigninFormValues } from '@/types/signin';
-import SignupButton from '@/components/button/SignupButton';
+import SignupButton from '@/features/auth/ui/SignupButton';
+import { SignInFormValues } from '@/features/auth/model/types/signIn';
+import { useSignIn } from '@/features/auth/queries/useSignIn';
+import { AxiosError } from 'axios';
+import { useNotify } from '@/shared/lib/hooks/useNotify';
+import { useRouter } from 'next/navigation';
 
 export default function SigninForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SigninFormValues>();
+  } = useForm<SignInFormValues>();
 
-  const onSubmit = (data: SigninFormValues) => {
-    console.log('로그인 시도', data);
-    // 여기에 로그인 API 호출 등 로직 추가
+  const { mutate, isLoading } = useSignIn();
+
+  const toast = useNotify();
+
+  const router = useRouter();
+
+  const onSubmit = (data: SignInFormValues) => {
+    mutate(
+      {
+        email: data.email,
+        password: data.password,
+      },
+      {
+        onSuccess: (data) => {
+          localStorage.setItem('access_token', data.token);
+          toast.success('환영합니다!');
+          router.replace('/diary');
+        },
+        onError: (error: AxiosError<{ message: string }>) => {
+          toast.warning(error.response.data.message);
+        },
+      }
+    );
   };
 
   return (
@@ -35,7 +59,7 @@ export default function SigninForm() {
         color={'white'}
         mt="24"
         fontSize={20}
-        isLoading={isSubmitting}
+        isLoading={isSubmitting || isLoading}
         type="submit"
       >
         로그인!

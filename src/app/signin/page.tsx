@@ -1,6 +1,6 @@
 import HeaderText from '@/shared/ui/headerText';
 import * as S from './style';
-import SigninForm from '@/components/form/SigninForm';
+import SigninForm from '@/features/auth/ui/SigninForm';
 import FormCard from '@/shared/ui/formCard';
 
 const SigninPage = () => {
