@@ -5,17 +5,17 @@ import { useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
 import EmailInput from '@/components/input/EmailInput';
 import PasswordInput from '@/components/input/PasswordInput';
-import { SigninFormValues } from '@/types/signin';
 import SignupButton from '@/features/auth/ui/SignupButton';
+import { SignInFormValues } from '@/features/auth/model/types/signIn';
 
 export default function SigninForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SigninFormValues>();
+  } = useForm<SignInFormValues>();
 
-  const onSubmit = (data: SigninFormValues) => {
+  const onSubmit = (data: SignInFormValues) => {
     console.log('로그인 시도', data);
     // 여기에 로그인 API 호출 등 로직 추가
   };
