@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import EmailInput from '@/components/input/EmailInput';
 import PasswordInput from '@/components/input/PasswordInput';
 import { SigninFormValues } from '@/types/signin';
-import SignupButton from '@/components/button/SignupButton';
+import SignupButton from '@/features/auth/ui/SignupButton';
 
 export default function SigninForm() {
   const {
