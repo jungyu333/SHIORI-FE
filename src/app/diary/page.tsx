@@ -1,5 +1,8 @@
-const DiaryPage = () => {
-  return <div>Diary Page</div>;
+import { redirect } from 'next/navigation';
+import { getTodayAsDDMMYYYY } from '@/shared/lib/utils/date';
+
+const DiaryRedirectPage = () => {
+  redirect(`/diary/${getTodayAsDDMMYYYY()}`);
 };
 
-export default DiaryPage;
+export default DiaryRedirectPage;
