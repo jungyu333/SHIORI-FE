@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/diary', request.url));
   }
 
-  if (!isAuthenticated && protectedRoutes.includes(pathname)) {
+  if (!isAuthenticated && pathname.startsWith('/diary')) {
     return NextResponse.redirect(new URL('/signin', request.url));
   }
 
@@ -23,5 +23,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/diary', '/signin', '/signup', '/'],
+  matcher: ['/diary/:path*', '/signin', '/signup', '/'],
 };
