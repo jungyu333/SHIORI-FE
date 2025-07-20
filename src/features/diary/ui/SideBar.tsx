@@ -7,8 +7,31 @@ import { colors } from '@/styles/theme/foundations/colors';
 import SidebarNavigationButton from './SideBarNavigationButton';
 import styled from '@emotion/styled';
 import UserSection from '@/features/diary/ui/UserSection';
+import { useLogOut } from '@/features/diary/queries/useLogOut';
+import { useNotify } from '@/shared/lib/hooks/useNotify';
+import { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function SideBar() {
+  const { mutate, isLoading } = useLogOut();
+
+  const toast = useNotify();
+
+  const router = useRouter();
+
+  const handleLogout = () => {
+    mutate(undefined, {
+      onSuccess: (data) => {
+        toast.success(data.message);
+        localStorage.removeItem('access_token');
+        router.push('/signin');
+      },
+      onError: (error: AxiosError<{ message: string }>) => {
+        toast.warning(error.response.data.message);
+      },
+    });
+  };
+
   return (
     <Container>
       <Title>SHIORI</Title>
@@ -31,7 +54,14 @@ export default function SideBar() {
         </SidebarNavigationButton>
       </VStack>
 
-      <UserSection email={'jungyu3826@naver.com'} onLogout={() => console.log} onProfile={() => console.log} />
+      <UserSection
+        email={'jungyu3826@naver.com'}
+        logout={{
+          handle: handleLogout,
+          isLoading: isLoading,
+        }}
+        onProfile={() => console.log}
+      />
     </Container>
   );
 }

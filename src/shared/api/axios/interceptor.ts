@@ -74,8 +74,9 @@ export const INTERCEPTORS = {
       if (
         error.response?.status === 401 &&
         !originalRequest._retry &&
-        errorCode == 'TOKEN__DECODE_ERROR' &&
-        errorCode == 'TOKEN__EXPIRE_TOKEN' &&
+        (errorCode === 'TOKEN__DECODE_ERROR' ||
+          errorCode === 'TOKEN__EXPIRE_TOKEN' ||
+          errorCode === '권한이 없습니다') &&
         !originalRequest.url?.includes('/api/auth/refresh')
       ) {
         originalRequest._retry = true;

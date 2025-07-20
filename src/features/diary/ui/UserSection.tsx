@@ -7,11 +7,14 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 
 interface Props {
   email: string;
-  onLogout: () => void;
   onProfile: () => void;
+  logout: {
+    handle: () => void;
+    isLoading: boolean;
+  };
 }
 
-export default function UserSection({ email, onLogout, onProfile }: Props) {
+export default function UserSection({ email, logout, onProfile }: Props) {
   return (
     <Wrapper>
       <Menu>
@@ -25,7 +28,7 @@ export default function UserSection({ email, onLogout, onProfile }: Props) {
           <MenuItem fontSize={'sm'} onClick={onProfile}>
             Profile
           </MenuItem>
-          <MenuItem fontSize={'sm'} onClick={onLogout}>
+          <MenuItem fontSize={'sm'} onClick={logout.handle} disabled={logout.isLoading}>
             Logout
           </MenuItem>
         </MenuList>
