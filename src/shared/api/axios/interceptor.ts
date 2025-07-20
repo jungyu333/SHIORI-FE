@@ -69,10 +69,13 @@ export const INTERCEPTORS = {
 
     onRejected: async (error: AxiosError) => {
       const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+      const errorCode = (error.response?.data as any)?.message;
 
       if (
         error.response?.status === 401 &&
         !originalRequest._retry &&
+        errorCode == 'TOKEN__DECODE_ERROR' &&
+        errorCode == 'TOKEN__EXPIRE_TOKEN' &&
         !originalRequest.url?.includes('/api/auth/refresh')
       ) {
         originalRequest._retry = true;
