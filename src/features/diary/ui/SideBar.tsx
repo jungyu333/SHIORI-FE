@@ -6,6 +6,7 @@ import { getTodayAsDDMMYYYY } from '@/shared/lib/utils/date';
 import { colors } from '@/styles/theme/foundations/colors';
 import SidebarNavigationButton from './SideBarNavigationButton';
 import styled from '@emotion/styled';
+import UserSection from '@/features/diary/ui/UserSection';
 
 export default function SideBar() {
   return (
@@ -29,6 +30,8 @@ export default function SideBar() {
           Calendar
         </SidebarNavigationButton>
       </VStack>
+
+      <UserSection email={'jungyu3826@naver.com'} onLogout={() => console.log} onProfile={() => console.log} />
     </Container>
   );
 }
@@ -38,7 +41,7 @@ const Container = styled(Box)`
   left: 0;
   top: 0;
   height: 100vh;
-  width: 220px;
+  width: 300px;
   color: ${colors.white};
   padding: 24px 20px;
   background-color: ${colors.primary['500']};
