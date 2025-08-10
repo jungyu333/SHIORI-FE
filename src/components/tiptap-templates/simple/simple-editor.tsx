@@ -157,9 +157,10 @@ const MobileToolbarContent = ({ type, onBack }: { type: 'highlighter' | 'link'; 
 
 type Props = {
   content: object;
+  onSaveAction: (contentJson: any) => void;
 };
 
-export function SimpleEditor({ content }: Props) {
+export function SimpleEditor({ content, onSaveAction }: Props) {
   const isMobile = useIsMobile();
   const windowSize = useWindowSize();
   const [mobileView, setMobileView] = React.useState<'main' | 'highlighter' | 'link'>('main');
@@ -243,7 +244,7 @@ export function SimpleEditor({ content }: Props) {
                   onClick={() => {
                     if (!editor) return;
                     const json = editor.getJSON();
-                    console.log('📦 저장된 JSON:', json);
+                    onSaveAction(json);
                   }}
                 >
                   저장

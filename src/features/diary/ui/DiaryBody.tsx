@@ -11,9 +11,13 @@ type Props = {
 export default function DiaryBody({ date }: Props) {
   const { isFetching, error, data } = useGetDiaryContent(toYYYYMMDD(parseDDMMYYYY(date)));
 
+  const onSaveHandler = (contentJson: any) => {
+    console.log('📦 저장된 JSON:', contentJson);
+  };
+
   return (
     <>
-      <SimpleEditor content={data?.content} />
+      <SimpleEditor content={data?.content} onSaveAction={onSaveHandler} />
     </>
   );
 }
