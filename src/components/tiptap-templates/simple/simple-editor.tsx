@@ -9,9 +9,6 @@ import { Image } from '@tiptap/extension-image';
 import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { Typography } from '@tiptap/extension-typography';
-import { Highlight } from '@tiptap/extension-highlight';
-import { Subscript } from '@tiptap/extension-subscript';
-import { Superscript } from '@tiptap/extension-superscript';
 import { Selection } from '@tiptap/extensions';
 
 // --- UI Primitives ---
@@ -35,12 +32,8 @@ import { HeadingDropdownMenu } from '@/components/tiptap-ui/heading-dropdown-men
 import { ListDropdownMenu } from '@/components/tiptap-ui/list-dropdown-menu';
 import { BlockquoteButton } from '@/components/tiptap-ui/blockquote-button';
 import { CodeBlockButton } from '@/components/tiptap-ui/code-block-button';
-import {
-  ColorHighlightPopover,
-  ColorHighlightPopoverButton,
-  ColorHighlightPopoverContent,
-} from '@/components/tiptap-ui/color-highlight-popover';
-import { LinkButton, LinkContent, LinkPopover } from '@/components/tiptap-ui/link-popover';
+import { ColorHighlightPopoverContent } from '@/components/tiptap-ui/color-highlight-popover';
+import { LinkContent } from '@/components/tiptap-ui/link-popover';
 import { MarkButton } from '@/components/tiptap-ui/mark-button';
 import { TextAlignButton } from '@/components/tiptap-ui/text-align-button';
 import { UndoRedoButton } from '@/components/tiptap-ui/undo-redo-button';
@@ -99,16 +92,16 @@ const MainToolbarContent = ({
         <MarkButton type="strike" />
         <MarkButton type="code" />
         <MarkButton type="underline" />
-        {!isMobile ? <ColorHighlightPopover /> : <ColorHighlightPopoverButton onClick={onHighlighterClick} />}
-        {!isMobile ? <LinkPopover /> : <LinkButton onClick={onLinkClick} />}
+        {/*{!isMobile ? <ColorHighlightPopover /> : <ColorHighlightPopoverButton onClick={onHighlighterClick} />}*/}
+        {/*{!isMobile ? <LinkPopover /> : <LinkButton onClick={onLinkClick} />}*/}
       </ToolbarGroup>
 
-      <ToolbarSeparator />
+      {/*<ToolbarSeparator />*/}
 
-      <ToolbarGroup>
-        <MarkButton type="superscript" />
-        <MarkButton type="subscript" />
-      </ToolbarGroup>
+      {/*<ToolbarGroup>*/}
+      {/*  <MarkButton type="superscript" />*/}
+      {/*  <MarkButton type="subscript" />*/}
+      {/*</ToolbarGroup>*/}
 
       <ToolbarSeparator />
 
@@ -157,9 +150,10 @@ const MobileToolbarContent = ({ type, onBack }: { type: 'highlighter' | 'link'; 
 
 type Props = {
   content: object;
+  onSaveAction: (contentJson: any) => void;
 };
 
-export function SimpleEditor({ content }: Props) {
+export function SimpleEditor({ content, onSaveAction }: Props) {
   const isMobile = useIsMobile();
   const windowSize = useWindowSize();
   const [mobileView, setMobileView] = React.useState<'main' | 'highlighter' | 'link'>('main');
@@ -189,11 +183,11 @@ export function SimpleEditor({ content }: Props) {
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
       TaskList,
       TaskItem.configure({ nested: true }),
-      Highlight.configure({ multicolor: true }),
+      // Highlight.configure({ multicolor: true }),
       Image,
       Typography,
-      Superscript,
-      Subscript,
+      // Superscript,
+      // Subscript,
       Selection,
       ImageUploadNode.configure({
         accept: 'image/*',
@@ -216,6 +210,28 @@ export function SimpleEditor({ content }: Props) {
       setMobileView('main');
     }
   }, [isMobile, mobileView]);
+
+  const sanitizePM = (node: any): any => {
+    if (!node || typeof node !== 'object') return node;
+
+    if (node.type === 'text') {
+      if (typeof node.text !== 'string') return null; // ⬅️ 빈 text 노드 제거
+      return node;
+    }
+
+    let content = Array.isArray(node.content) ? node.content.map(sanitizePM).filter(Boolean) : undefined;
+
+    // doc/blockquote/list 계열 바로 아래에 text가 있으면 paragraph로 감싸기(보수적)
+    const containers = new Set(['doc', 'blockquote', 'bulletList', 'orderedList', 'listItem']);
+    if (content && containers.has(node.type)) {
+      content = content.flatMap((ch: any) => (ch?.type === 'text' ? [{ type: 'paragraph', content: [ch] }] : [ch]));
+    }
+
+    const out: any = { type: node.type };
+    if (node.attrs && Object.keys(node.attrs).length) out.attrs = node.attrs;
+    if (content?.length) out.content = content;
+    return out;
+  };
 
   return (
     <div className="simple-editor-wrapper">
@@ -243,7 +259,8 @@ export function SimpleEditor({ content }: Props) {
                   onClick={() => {
                     if (!editor) return;
                     const json = editor.getJSON();
-                    console.log('📦 저장된 JSON:', json);
+                    
+                    onSaveAction(json);
                   }}
                 >
                   저장
