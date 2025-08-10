@@ -37,7 +37,7 @@ export default function Providers({ children, dehydratedState }: { children: Rea
           {/*<ErrorBoundary fallback={<ErrorPage />}>{children}</ErrorBoundary>*/}
           {children}
         </ChakraProvider>
-        <ReactQueryDevtools initialIsOpen={false} position="bottom" />
+        <ReactQueryDevtools initialIsOpen={false} position={'bottom-right'} />
       </Hydrate>
       {/*<VercelAnalytics />*/}
     </QueryClientProvider>

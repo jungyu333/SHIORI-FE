@@ -1,5 +1,5 @@
 import DiaryHeader from '@/features/diary/ui/DiaryHeader';
-import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor';
+import DiaryBody from '@/features/diary/ui/DiaryBody';
 
 type Props = {
   params: Promise<{ date: string }>;
@@ -12,7 +12,7 @@ export default async function DiaryPage({ params }: Props) {
     <>
       <DiaryHeader date={date} />
 
-      <SimpleEditor />
+      <DiaryBody date={date} />
     </>
   );
 }
