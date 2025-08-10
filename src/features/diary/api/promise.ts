@@ -21,5 +21,5 @@ export const upsertDiaryContent = ({ date, content, title }: UpsertDiaryContentF
     title: title,
   };
 
-  return SHIORI_BE.post<UpsertDiaryContentRequestDTO, UpsertDiaryContentResponseDTO>(`/diary/{date}`, body);
+  return SHIORI_BE.post<UpsertDiaryContentRequestDTO, UpsertDiaryContentResponseDTO>(`/diary/${date}`, body);
 };
