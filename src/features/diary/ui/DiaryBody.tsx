@@ -19,10 +19,12 @@ export default function DiaryBody({ date }: Props) {
   const { mutate, isLoading } = useUpsertDiary();
 
   const onSaveHandler = (contentJson: any) => {
+    const extractedTitle = contentJson?.content?.[0]?.content?.[0]?.text ?? '';
+
     mutate({
       date: dateString,
       content: contentJson,
-      title: ' ',
+      title: extractedTitle,
     });
   };
 
