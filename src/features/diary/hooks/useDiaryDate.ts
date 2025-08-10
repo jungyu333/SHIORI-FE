@@ -9,7 +9,7 @@ export const useDiaryDate = (date: string) => {
     const current = parseDDMMYYYY(date);
     current.setDate(current.getDate() + offset);
     const newDate = toDDMMYYYY(current);
-    console.log(newDate);
+    
     router.push(`/diary/${newDate}`);
   };
 

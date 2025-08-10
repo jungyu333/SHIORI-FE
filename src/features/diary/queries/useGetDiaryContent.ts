@@ -13,7 +13,7 @@ export const useGetDiaryContent = (date: string) => {
 
   return {
     isFetching,
-    config: data,
+    data,
     error,
     refetch,
   };

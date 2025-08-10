@@ -12,6 +12,11 @@ export const toDDMMYYYY = (date: Date) => {
   return `${pad(date.getDate())}${pad(date.getMonth() + 1)}${date.getFullYear()}`;
 };
 
+export const toYYYYMMDD = (date: Date) => {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}`;
+};
+
 export const parseDDMMYYYY = (dateStr: string) => {
   const day = parseInt(dateStr.slice(0, 2), 10);
   const month = parseInt(dateStr.slice(2, 4), 10) - 1; // zero-based
