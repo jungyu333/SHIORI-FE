@@ -1,3 +1,34 @@
+export const getWeekStartDate = (date: Date): Date => {
+  const result = new Date(date);
+  const dayOfWeek = (result.getDay() + 6) % 7; // Monday = 0
+  result.setDate(result.getDate() - dayOfWeek);
+  result.setHours(0, 0, 0, 0);
+  return result;
+};
+
+export const addDaysToDate = (date: Date, offset: number): Date => {
+  const result = new Date(date);
+  result.setDate(result.getDate() + offset);
+  return result;
+};
+
+export const formatDateToYMD = (date: Date): string => {
+  return date.toISOString().split('T')[0];
+};
+
+export const getMonthWeekLabel = (weekStartDate: Date): string => {
+  const month = weekStartDate.getMonth(); // 0-based
+  const year = weekStartDate.getFullYear();
+
+  const firstOfMonth = new Date(year, month, 1);
+  const firstWeekStart = getWeekStartDate(firstOfMonth);
+
+  const diffInDays = Math.floor((weekStartDate.getTime() - firstWeekStart.getTime()) / 86400000);
+  const weekNumber = Math.floor(diffInDays / 7) + 1;
+
+  return `${month + 1}월 ${weekNumber}주차`;
+};
+
 export const getTodayAsDDMMYYYY = () => {
   const now = new Date();
   const day = String(now.getDate()).padStart(2, '0');
