@@ -29,4 +29,5 @@ const TableWrapper = styled(Box)`
   overflow-x: auto;
   border-width: 2px;
   width: 100%;
+  height: 100%;
 `;
