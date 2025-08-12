@@ -40,8 +40,6 @@ export default function DiaryBody({ date }: Props) {
     );
   }
 
-  console.log(data);
-
   return (
     <>
       <SimpleEditor content={data?.content} onSaveAction={onSaveHandler} />
