@@ -19,7 +19,7 @@ export default function WeekTableBody({ diaryMeta }: Props) {
   }
 
   return (
-    <Tbody>
+    <TableBody>
       {diaryMeta.map((meta: WeekDiaryMeta) => (
         <HoverRow key={meta.date}>
           <Td>{formatYYYYMMDDToDashed(meta.date)}</Td>
@@ -40,14 +40,20 @@ export default function WeekTableBody({ diaryMeta }: Props) {
           </Td>
         </HoverRow>
       ))}
-    </Tbody>
+    </TableBody>
   );
 }
+
+const TableBody = styled(Tbody)`
+  height: 100%;
+`;
 
 const HoverRow = styled(Tr)`
   &:hover {
     background: ${theme.colors.gray['100']};
   }
+
+  height: calc((40vh - 35px) / 7);
 
   cursor: pointer;
 `;
