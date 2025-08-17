@@ -56,6 +56,25 @@ export const parseDDMMYYYY = (dateStr: string) => {
   return new Date(year, month, day);
 };
 
+export const formatYYYYMMDDToDashed = (dateStr: string): string => {
+  const year = dateStr.slice(0, 4);
+  const month = dateStr.slice(4, 6);
+  const day = dateStr.slice(6, 8);
+  return `${year}-${month}-${day}`;
+};
+
+export const utcStringToKoreanDate = (utcStr: string): string => {
+  const [datePart, timePart] = utcStr.split(' ');
+  const [year, month, day] = datePart.split('-').map(Number);
+  const [hour, minute, second] = timePart.split(':').map(Number);
+
+  const date = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+  date.setUTCHours(date.getUTCHours() + 9);
+
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1)}-${pad(date.getUTCDate())}`;
+};
+
 export const formatDDMMYYYYToKorean = (dateStr: string) => {
   const date = parseDDMMYYYY(dateStr);
   const dayNames = ['일', '월', '화', '수', '목', '금', '토'];

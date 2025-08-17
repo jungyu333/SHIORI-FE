@@ -7,6 +7,7 @@ import { colors } from '@/styles/theme/foundations/colors';
 import EmptyTableRow from '@/features/diary/ui/EmptyTableRow';
 import StatusBadge from '@/features/diary/ui/StatusBadge';
 import { WeekDiaryMeta } from '@/features/diary/model/response/getWeekDiaryMeta';
+import { formatYYYYMMDDToDashed, utcStringToKoreanDate } from '@/shared/lib/utils/date';
 
 type Props = {
   diaryMeta: WeekDiaryMeta[];
@@ -21,9 +22,9 @@ export default function WeekTableBody({ diaryMeta }: Props) {
     <Tbody>
       {diaryMeta.map((meta: WeekDiaryMeta) => (
         <HoverRow key={meta.date}>
-          <Td>{meta.date}</Td>
+          <Td>{formatYYYYMMDDToDashed(meta.date)}</Td>
           <Td>{meta.title || <Box color={colors.grey['4']}>제목 없음</Box>}</Td>
-          <Td>{meta.updatedAt}</Td>
+          <Td>{utcStringToKoreanDate(meta.updatedAt)}</Td>
           <Td>
             <StatusBadge status={meta.summaryStatus} />
           </Td>
