@@ -1,5 +1,13 @@
 import { useCallback, useMemo, useState } from 'react';
-import { addDaysToDate, formatDateToYMD, getMonthWeekLabel, getWeekStartDate } from '@/shared/lib/utils/date';
+import {
+  addDaysToDate,
+  formatDateToYMD,
+  getMonthWeekLabel,
+  getWeekStartDate,
+  toYYYYMMDD,
+} from '@/shared/lib/utils/date';
+import { useGetWeekDiaryMeta } from '@/features/diary/queries/useGetWeekDiaryMeta';
+import { WeekDiaryMeta } from '@/features/diary/model/response/getWeekDiaryMeta';
 
 export type WeekNavigator = {
   weekStart: Date;
@@ -12,6 +20,8 @@ export type WeekNavigator = {
   nextWeek: () => void;
   goToday: () => void;
   setWeekStart: (date: Date) => void;
+  diaryMeta: WeekDiaryMeta[];
+  isLoading: boolean;
 };
 
 export const useWeekNavigator = (initial?: Date): WeekNavigator => {
@@ -21,6 +31,14 @@ export const useWeekNavigator = (initial?: Date): WeekNavigator => {
 
   const formattedStart = useMemo(() => formatDateToYMD(weekStart), [weekStart]);
   const formattedEnd = useMemo(() => formatDateToYMD(weekEnd), [weekEnd]);
+
+  const startDate = useMemo(() => toYYYYMMDD(weekStart), [weekStart]);
+  const endDate = useMemo(() => toYYYYMMDD(weekEnd), [weekEnd]);
+
+  const { data, isFetching, error } = useGetWeekDiaryMeta({
+    startDate,
+    endDate,
+  });
 
   const days = useMemo(
     () => Array.from({ length: 7 }, (_, i) => formatDateToYMD(addDaysToDate(weekStart, i))),
@@ -44,5 +62,7 @@ export const useWeekNavigator = (initial?: Date): WeekNavigator => {
     nextWeek,
     goToday,
     setWeekStart,
+    diaryMeta: data,
+    isLoading: isFetching,
   };
 };
