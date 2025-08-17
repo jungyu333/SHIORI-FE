@@ -84,3 +84,13 @@ export const formatDDMMYYYYToKorean = (dateStr: string) => {
   const dayName = dayNames[date.getDay()];
   return `${year}년 ${month}월 ${day}일 (${dayName})`;
 };
+
+export const yyyymmddToDdmmYYYY = (dateStr: string): string => {
+  if (dateStr.length !== 8) {
+    throw new Error('Invalid date format, expected YYYYMMDD');
+  }
+  const year = dateStr.slice(0, 4);
+  const month = dateStr.slice(4, 6);
+  const day = dateStr.slice(6, 8);
+  return `${day}${month}${year}`;
+};
