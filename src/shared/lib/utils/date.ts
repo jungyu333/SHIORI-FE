@@ -13,7 +13,8 @@ export const addDaysToDate = (date: Date, offset: number): Date => {
 };
 
 export const formatDateToYMD = (date: Date): string => {
-  return date.toISOString().split('T')[0];
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 };
 
 export const getMonthWeekLabel = (weekStartDate: Date): string => {
