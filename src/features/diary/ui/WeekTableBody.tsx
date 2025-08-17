@@ -7,13 +7,16 @@ import { colors } from '@/styles/theme/foundations/colors';
 import EmptyTableRow from '@/features/diary/ui/EmptyTableRow';
 import StatusBadge from '@/features/diary/ui/StatusBadge';
 import { WeekDiaryMeta } from '@/features/diary/model/response/getWeekDiaryMeta';
-import { formatYYYYMMDDToDashed, utcStringToKoreanDate } from '@/shared/lib/utils/date';
+import { formatYYYYMMDDToDashed, utcStringToKoreanDate, yyyymmddToDdmmYYYY } from '@/shared/lib/utils/date';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   diaryMeta: WeekDiaryMeta[];
 };
 
 export default function WeekTableBody({ diaryMeta }: Props) {
+  const router = useRouter();
+
   if (diaryMeta.length === 0) {
     return <EmptyTableRow />;
   }
@@ -30,7 +33,13 @@ export default function WeekTableBody({ diaryMeta }: Props) {
           </Td>
           <Td isNumeric>
             <HStack justify="flex-end" spacing={2}>
-              <Button size="xs" variant="ghost">
+              <Button
+                size="xs"
+                variant="ghost"
+                onClick={() => {
+                  router.push(`/diary/${yyyymmddToDdmmYYYY(meta.date)}`);
+                }}
+              >
                 Go
               </Button>
               <Button size="xs" variant="ghost">
