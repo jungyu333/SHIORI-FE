@@ -13,6 +13,7 @@ type Props = {
   prevWeekAction: () => void;
   nextWeekAction: () => void;
   onGenerateSummaryAction: () => void;
+  isLoading: boolean;
 };
 
 export default function WeekHeader({
@@ -22,6 +23,7 @@ export default function WeekHeader({
   onGenerateSummaryAction,
   nextWeekAction,
   prevWeekAction,
+  isLoading,
 }: Props) {
   return (
     <HeaderBar>
@@ -38,6 +40,7 @@ export default function WeekHeader({
             backgroundColor={colors.secondary['500']}
             onClick={onGenerateSummaryAction}
             isDisabled={isDisabled}
+            isLoading={isLoading}
           >
             주간 요약 생성
           </Button>

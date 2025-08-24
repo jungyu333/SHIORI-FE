@@ -57,7 +57,7 @@ export const useWeekNavigator = (initial?: Date): WeekNavigator => {
     label: getMonthWeekLabel(weekStart),
     rangeText: `${formattedStart} ~ ${formattedEnd}`,
     days,
-    rangeQuery: { from: formattedStart, to: formattedEnd },
+    rangeQuery: { from: startDate, to: endDate },
     prevWeek,
     nextWeek,
     goToday,
