@@ -8,6 +8,7 @@ import {
 import { UpsertDiaryContentResponseDTO } from '@/features/diary/model/response/upsertDiaryContent';
 import { GetWeekDiaryMetaForm } from '@/features/diary/model/request/getWeekDiaryMeta';
 import { GetWeekDiaryMetaResponseDTO } from '@/features/diary/model/response/getWeekDiaryMeta';
+import { SummaryDiaryForm, SummaryDiaryRequestDTO } from '@/features/diary/model/request/summaryDiary';
 
 export const logout = () => {
   return SHIORI_BE.delete('/user/logout');
@@ -28,4 +29,13 @@ export const upsertDiaryContent = ({ date, content, title }: UpsertDiaryContentF
 
 export const getWeekDiaryMeta = ({ startDate, endDate }: GetWeekDiaryMetaForm) => {
   return SHIORI_BE.get<GetWeekDiaryMetaResponseDTO>(`/diary?start=${startDate}&end=${endDate}`);
+};
+
+export const summaryDiary = ({ start, end }: SummaryDiaryForm) => {
+  const body = {
+    start: start,
+    end: end,
+  };
+
+  return SHIORI_BE.post<SummaryDiaryRequestDTO, null>(`/diary/summary`, body);
 };
